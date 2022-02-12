@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"jiang-lijun.github.io","root":"/hacalili.github.io/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"jiang-lijun.github.io","root":"/hacalili.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":240,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="HTML+CSS+JS案例展示(仿淘宝侧边栏效果)    参考来源：    JavaScript基础语法-dom-bom-js-es6新语法-jQuery-数据可视化echarts黑马pink老师前端入门基础视频教程(500多集)持续_哔哩哔哩_bilibili  效果展示： 网页GitHub地址如下：（若加载较慢建议刷新后耐心等待一会~）js_subnav 主要功能： 侧边栏初始状态是绝对定位，">
@@ -171,7 +171,7 @@
     <link itemprop="mainEntityOfPage" href="https://jiang-lijun.github.io/hacalili.github.io/2022/02/12/HTML+CSS+JS%E6%A1%88%E4%BE%8B%E5%B1%95%E7%A4%BA(%E4%BB%BF%E6%B7%98%E5%AE%9D%E4%BE%A7%E8%BE%B9%E6%A0%8F%E6%95%88%E6%9E%9C)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/hacalili.github.io/images/avatar.gif">
+      <meta itemprop="image" content="/hacalili.github.io/images/avatar.jpg">
       <meta itemprop="name" content="hacalili">
       <meta itemprop="description" content="">
     </span>
@@ -315,6 +315,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="hacalili"
+      src="/hacalili.github.io/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">hacalili</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -341,18 +343,13 @@
       </div>
   </nav>
 </div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://jiang-lijun.github.io/hacalili.github.io/" title="https:&#x2F;&#x2F;jiang-lijun.github.io&#x2F;hacalili.github.io&#x2F;">Title</a>
-        </li>
-    </ul>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jiang-lijun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jiang-lijun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
   </div>
+
+
 
       </div>
 
@@ -379,7 +376,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">hacalili</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
         
