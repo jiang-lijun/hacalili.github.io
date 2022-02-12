@@ -1,29 +1,25 @@
 ---
-
-title: pat答题记录
-date: 2022-01-28
-tags: 前端,HTML,CSS
-
-- 博客
-- hexo
-
-categories: 前端
-
+title: HTML+CSS案例展示(仿写携程网移动端首页)
+date: 
+author: hacalili
+categories: 前端作品及案例展示
+tags:
+  - HTML
+  - CSS
+  - JS
 ---
 
 >  参考来源：
 >
 >  [黑马程序员pink老师前端入门教程，零基础必看的h5(html5)+css3+移动端前端视频教程_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV14J4114768?p=502&spm_id_from=333.1007.top_right_bar_window_history.content.click)
 
-# 仿写携程网移动端首页
+<!-- more -->
 
-------
+# 仿写携程网移动端首页
 
 # 网页如下：
 
 [ctripH5](https://jiang-lijun.github.io/ctripH5/)
-
-------
 
 # 总结：
 

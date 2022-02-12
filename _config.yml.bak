@@ -104,4 +104,4 @@ theme: butterfly
 deploy:
   type: git
   repo: git@github.com:jiang-lijun/hacalili.github.io.git
-  branch: master,main
+  branch: main

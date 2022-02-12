@@ -27,7 +27,10 @@ print(jiahe,yihe)
 输出：
 1 2
 
+<!-- more -->
+
 #### 1018 锤子剪刀布 (20 分)
+
 ```
 n = int(input())
 ping = 0
