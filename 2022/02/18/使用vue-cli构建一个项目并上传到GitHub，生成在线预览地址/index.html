@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hacalili.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/hacalili.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/hacalili.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/hacalili.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/hacalili.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/hacalili.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jiang-lijun.github.io","root":"/hacalili.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":240,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址   参考来源：   前端小白如何快速上手Vue框架(下篇)_Logbook的博客-CSDN博客_如何快速搭建vue框架   vue项目上传github–提供demo入口 - 简书  效果展示： 主要功能：使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用vue-cli构建一个项目并上传到GitHub生成在线预览地址">
+<meta property="og:url" content="https://jiang-lijun.github.io/hacalili.github.io/2022/02/18/%E4%BD%BF%E7%94%A8vue-cli%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E4%B8%8A%E4%BC%A0%E5%88%B0GitHub%EF%BC%8C%E7%94%9F%E6%88%90%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88%E5%9C%B0%E5%9D%80/index.html">
+<meta property="og:site_name" content="hacalili&#39;s blog">
+<meta property="og:description" content="使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址   参考来源：   前端小白如何快速上手Vue框架(下篇)_Logbook的博客-CSDN博客_如何快速搭建vue框架   vue项目上传github–提供demo入口 - 简书  效果展示： 主要功能：使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/09f6e4e141884c3bac4e4dc6359e28ff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b980b7fb173f453eb8d2a7b3051cc2d0.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a77f31b9abbf4bd09f1e428ce5827b81.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f1a79b5ea15543d4886638f801991b2f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4618958cce144436980220046f3ce360.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f3d9070e1d5e4e9c9b78d753c80bc054.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7ca5b2e7e7ee454395841ad7039a41fb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/71964ee0d34e476083f649af74942415.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_17,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/09f6e4e141884c3bac4e4dc6359e28ff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/10e57c64169c4ab2a95146b516f8d1d1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5d3b47129395473bb03b78f869bd5dd2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/30f8ad227dff479e97077060085b3969.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/99c3679dcc7e404ea639c05a098e1049.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/83c6912b7ff340999036bedf44bb0a8e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/80f1b66627a342ac85d6c0a2721e7123.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/61db43ba9daf48caa1247b886de2679b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2f00defa71f84ccebe0be9443916d2e4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/680418265bb842549b23e1f362cf3c53.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/dbd80f6968724d7ebd507313bf5d7f38.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/975c1e0005954250915df755f55d7be4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/cd89b23a1af945ecac49b79105d54917.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_19,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8760fcc2294445819c5b60dac5afdc22.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6e9fad891a3943148c149cc03e5367a4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/50c99ed8824e4851894fe7f239a0cdca.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/dd7d58340e8143d4a1d9ebd785afa5b8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f7fdf45394144ce8bab0b9de4129e2f9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6b852f98d4b24ad69eb5028d43d0d979.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7a09a8b8512b425dbd12c0ea5a3e53ca.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e18b1711263b483f93a08ebfcb86be0f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6db7954eb6324bc3a1f25b9c3b828655.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="article:published_time" content="2022-02-18T04:45:00.575Z">
+<meta property="article:modified_time" content="2022-02-18T04:56:14.150Z">
+<meta property="article:author" content="hacalili">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="JS">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/09f6e4e141884c3bac4e4dc6359e28ff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+
+<link rel="canonical" href="https://jiang-lijun.github.io/hacalili.github.io/2022/02/18/%E4%BD%BF%E7%94%A8vue-cli%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E4%B8%8A%E4%BC%A0%E5%88%B0GitHub%EF%BC%8C%E7%94%9F%E6%88%90%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88%E5%9C%B0%E5%9D%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用vue-cli构建一个项目并上传到GitHub生成在线预览地址 | hacalili's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/hacalili.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hacalili's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/hacalili.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/hacalili.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/hacalili.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/hacalili.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/hacalili.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jiang-lijun.github.io/hacalili.github.io/2022/02/18/%E4%BD%BF%E7%94%A8vue-cli%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E4%B8%8A%E4%BC%A0%E5%88%B0GitHub%EF%BC%8C%E7%94%9F%E6%88%90%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88%E5%9C%B0%E5%9D%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/hacalili.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="hacalili">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hacalili's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用vue-cli构建一个项目并上传到GitHub生成在线预览地址
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-18 12:45:00 / 修改时间：12:56:14" itemprop="dateCreated datePublished" datetime="2022-02-18T12:45:00+08:00">2022-02-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/hacalili.github.io/categories/%E5%89%8D%E7%AB%AF%E4%BD%9C%E5%93%81%E5%8F%8A%E6%A1%88%E4%BE%8B%E5%B1%95%E7%A4%BA/" itemprop="url" rel="index"><span itemprop="name">前端作品及案例展示</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址"><a href="#使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址" class="headerlink" title="使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址"></a>使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址</h1><blockquote>
+<p>  参考来源：</p>
+<p>  <a target="_blank" rel="noopener" href="https://blog.csdn.net/aaaaaab_/article/details/88171234?spm=1001.2014.3001.5506">前端小白如何快速上手Vue框架(下篇)_Logbook的博客-CSDN博客_如何快速搭建vue框架</a></p>
+<p>  <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/13df61095961">vue项目上传github–提供demo入口 - 简书</a></p>
+</blockquote>
+<h2 id="效果展示："><a href="#效果展示：" class="headerlink" title="效果展示："></a>效果展示：</h2><p><img src="https://img-blog.csdnimg.cn/09f6e4e141884c3bac4e4dc6359e28ff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h2 id="主要功能："><a href="#主要功能：" class="headerlink" title="主要功能："></a>主要功能：</h2><p>使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址</p>
+<span id="more"></span>
+
+<h2 id="GitHub地址如下：（若加载较慢建议刷新后耐心等待一会-）"><a href="#GitHub地址如下：（若加载较慢建议刷新后耐心等待一会-）" class="headerlink" title="GitHub地址如下：（若加载较慢建议刷新后耐心等待一会~）"></a>GitHub地址如下：（若加载较慢建议刷新后耐心等待一会~）</h2><p><a target="_blank" rel="noopener" href="https://github.com/jiang-lijun/vuecli_test">https://github.com/jiang-lijun/vuecli_test</a></p>
+<h2 id="预览地址："><a href="#预览地址：" class="headerlink" title="预览地址："></a>预览地址：</h2><p><a href="https://jiang-lijun.github.io/vuecli_test/dist/index.html#/">vuecli_test</a></p>
+<h2 id="步骤如下："><a href="#步骤如下：" class="headerlink" title="步骤如下："></a>步骤如下：</h2><h3 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">vue -V</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://img-blog.csdnimg.cn/b980b7fb173f453eb8d2a7b3051cc2d0.png" alt="img"></p>
+<p> <img src="https://img-blog.csdnimg.cn/a77f31b9abbf4bd09f1e428ce5827b81.png" alt="img"></p>
+<h3 id="二、构建一个项目"><a href="#二、构建一个项目" class="headerlink" title="二、构建一个项目"></a>二、构建一个项目</h3><p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init &lt;template-name&gt; &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p> <template-name>：模板名称</p>
+<p><project-name>：项目名称</p>
+<p>使用官方模板： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack vuecli_test</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://img-blog.csdnimg.cn/f1a79b5ea15543d4886638f801991b2f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/4618958cce144436980220046f3ce360.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h3 id="三、运行项目"><a href="#三、运行项目" class="headerlink" title="三、运行项目"></a>三、运行项目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd vuecli_test</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+
+<p> <img src="https://img-blog.csdnimg.cn/f3d9070e1d5e4e9c9b78d753c80bc054.png" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/7ca5b2e7e7ee454395841ad7039a41fb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h3 id="四、在浏览器打开，输入url"><a href="#四、在浏览器打开，输入url" class="headerlink" title="四、在浏览器打开，输入url"></a>四、在浏览器打开，输入url</h3><p><img src="https://img-blog.csdnimg.cn/71964ee0d34e476083f649af74942415.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_17,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/09f6e4e141884c3bac4e4dc6359e28ff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h3 id="五、创建的项目目录"><a href="#五、创建的项目目录" class="headerlink" title="五、创建的项目目录"></a>五、创建的项目目录</h3><p><img src="https://img-blog.csdnimg.cn/10e57c64169c4ab2a95146b516f8d1d1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h3 id="六、将本地项目部署到GitHub上"><a href="#六、将本地项目部署到GitHub上" class="headerlink" title="六、将本地项目部署到GitHub上"></a>六、将本地项目部署到GitHub上</h3><h4 id="6-1-GitHub上新建仓库："><a href="#6-1-GitHub上新建仓库：" class="headerlink" title="6.1. GitHub上新建仓库："></a>6.1. GitHub上新建仓库：</h4><p><img src="https://img-blog.csdnimg.cn/5d3b47129395473bb03b78f869bd5dd2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/30f8ad227dff479e97077060085b3969.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h4 id="6-2-进入本地项目根目录下："><a href="#6-2-进入本地项目根目录下：" class="headerlink" title="6.2. 进入本地项目根目录下："></a>6.2. 进入本地项目根目录下：</h4><p><img src="https://img-blog.csdnimg.cn/99c3679dcc7e404ea639c05a098e1049.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h4 id="6-3-在空白区域右击鼠标："><a href="#6-3-在空白区域右击鼠标：" class="headerlink" title="6.3. 在空白区域右击鼠标："></a>6.3. 在空白区域右击鼠标：</h4><p><img src="https://img-blog.csdnimg.cn/83c6912b7ff340999036bedf44bb0a8e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h4 id="6-4-进入Git-Bash-Here并输入以下命令（记得把刚刚启动的本地服务先关闭，按CTRL-c退出）"><a href="#6-4-进入Git-Bash-Here并输入以下命令（记得把刚刚启动的本地服务先关闭，按CTRL-c退出）" class="headerlink" title="6.4. 进入Git Bash Here并输入以下命令（记得把刚刚启动的本地服务先关闭，按CTRL+c退出）:"></a>6.4. 进入Git Bash Here并输入以下命令（记得把刚刚启动的本地服务先关闭，按CTRL+c退出）:</h4><h5 id="6-4-1-创建本地仓库"><a href="#6-4-1-创建本地仓库" class="headerlink" title="6.4.1. 创建本地仓库"></a>6.4.1. 创建本地仓库</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://img-blog.csdnimg.cn/80f1b66627a342ac85d6c0a2721e7123.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p> 6.4.2. 添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+
+
+<p> <img src="https://img-blog.csdnimg.cn/61db43ba9daf48caa1247b886de2679b.png" alt="img"></p>
+<h5 id="6-4-3-提交到本地仓库，并添加注释"><a href="#6-4-3-提交到本地仓库，并添加注释" class="headerlink" title="6.4.3. 提交到本地仓库，并添加注释"></a>6.4.3. 提交到本地仓库，并添加注释</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;vuecli_test&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p> <img src="https://img-blog.csdnimg.cn/2f00defa71f84ccebe0be9443916d2e4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h5 id="6-4-4-连接远程仓库"><a href="#6-4-4-连接远程仓库" class="headerlink" title="6.4.4. 连接远程仓库"></a>6.4.4. 连接远程仓库</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:xxx/vuecli_test.git</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="6-4-5-推送到远程仓库"><a href="#6-4-5-推送到远程仓库" class="headerlink" title="6.4.5. 推送到远程仓库"></a>6.4.5. 推送到远程仓库</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://img-blog.csdnimg.cn/680418265bb842549b23e1f362cf3c53.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h5 id="6-4-6-查看GitHub，已成功上传"><a href="#6-4-6-查看GitHub，已成功上传" class="headerlink" title="6.4.6. 查看GitHub，已成功上传"></a>6.4.6. 查看GitHub，已成功上传</h5><h3 id=""><a href="#" class="headerlink" title=""></a><img src="https://img-blog.csdnimg.cn/dbd80f6968724d7ebd507313bf5d7f38.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></h3><h5 id="6-4-7-生成项目入口"><a href="#6-4-7-生成项目入口" class="headerlink" title="6.4.7. 生成项目入口"></a>6.4.7. 生成项目入口</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p> 报错：<img src="https://img-blog.csdnimg.cn/975c1e0005954250915df755f55d7be4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p>解决方法：</p>
+<p> <img src="https://img-blog.csdnimg.cn/cd89b23a1af945ecac49b79105d54917.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_19,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p> <img src="https://img-blog.csdnimg.cn/8760fcc2294445819c5b60dac5afdc22.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/6e9fad891a3943148c149cc03e5367a4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h5 id="6-4-8-生成项目入口文件"><a href="#6-4-8-生成项目入口文件" class="headerlink" title="6.4.8. 生成项目入口文件"></a>6.4.8. 生成项目入口文件</h5><p><img src="https://img-blog.csdnimg.cn/50c99ed8824e4851894fe7f239a0cdca.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/dd7d58340e8143d4a1d9ebd785afa5b8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<h5 id="6-4-9-重新提交到GitHub"><a href="#6-4-9-重新提交到GitHub" class="headerlink" title="6.4.9. 重新提交到GitHub"></a>6.4.9. 重新提交到GitHub</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add -f &quot;dist&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;update&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://img-blog.csdnimg.cn/f7fdf45394144ce8bab0b9de4129e2f9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="https://img-blog.csdnimg.cn/6b852f98d4b24ad69eb5028d43d0d979.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></h3><h3 id="七、GitHub配置pages，生成在线预览地址"><a href="#七、GitHub配置pages，生成在线预览地址" class="headerlink" title="七、GitHub配置pages，生成在线预览地址"></a>七、GitHub配置pages，生成在线预览地址</h3><p><img src="https://img-blog.csdnimg.cn/7a09a8b8512b425dbd12c0ea5a3e53ca.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p> 配置完成(在线预览的demo地址需要在生成的地址后面加上 dist/index.html)</p>
+<p><img src="https://img-blog.csdnimg.cn/e18b1711263b483f93a08ebfcb86be0f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p> <img src="https://img-blog.csdnimg.cn/6db7954eb6324bc3a1f25b9c3b828655.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"></p>
+<p> 预览地址</p>
+<p><a href="https://jiang-lijun.github.io/vuecli_test/dist/index.html#/">vuecli_test</a></p>
+<h1 id="vuecli-test"><a href="#vuecli-test" class="headerlink" title="vuecli_test"></a>vuecli_test</h1><blockquote>
+<p>A Vue.js project</p>
+</blockquote>
+<h2 id="Build-Setup"><a href="#Build-Setup" class="headerlink" title="Build Setup"></a>Build Setup</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install dependencies</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># serve with hot reload at localhost:8080</span></span><br><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># build for production with minification</span></span><br><span class="line">npm run build</span><br><span class="line"></span><br><span class="line"><span class="comment"># build for production and view the bundle analyzer report</span></span><br><span class="line">npm run build --report</span><br></pre></td></tr></table></figure>
+
+<p>For a detailed explanation on how things work, check out the <a target="_blank" rel="noopener" href="http://vuejs-templates.github.io/webpack/">guide</a> and <a target="_blank" rel="noopener" href="http://vuejs.github.io/vue-loader">docs for vue-loader</a>.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/hacalili.github.io/tags/HTML/" rel="tag"># HTML</a>
+              <a href="/hacalili.github.io/tags/CSS/" rel="tag"># CSS</a>
+              <a href="/hacalili.github.io/tags/JS/" rel="tag"># JS</a>
+              <a href="/hacalili.github.io/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/hacalili.github.io/2022/02/16/Ajax%E8%AF%B7%E6%B1%82%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" rel="prev" title="Ajax请求的基本操作">
+      <i class="fa fa-chevron-left"></i> Ajax请求的基本操作
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8vue-cli%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E4%B8%8A%E4%BC%A0%E5%88%B0GitHub%EF%BC%8C%E7%94%9F%E6%88%90%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">使用vue-cli构建一个项目并上传到GitHub，生成在线预览地址</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">效果展示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">主要功能：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub%E5%9C%B0%E5%9D%80%E5%A6%82%E4%B8%8B%EF%BC%9A%EF%BC%88%E8%8B%A5%E5%8A%A0%E8%BD%BD%E8%BE%83%E6%85%A2%E5%BB%BA%E8%AE%AE%E5%88%B7%E6%96%B0%E5%90%8E%E8%80%90%E5%BF%83%E7%AD%89%E5%BE%85%E4%B8%80%E4%BC%9A-%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">GitHub地址如下：（若加载较慢建议刷新后耐心等待一会~）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E8%A7%88%E5%9C%B0%E5%9D%80%EF%BC%9A"><span class="nav-number">1.4.</span> <span class="nav-text">预览地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">1.5.</span> <span class="nav-text">步骤如下：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.5.1.</span> <span class="nav-text">一、安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.5.2.</span> <span class="nav-text">二、构建一个项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.5.3.</span> <span class="nav-text">三、运行项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%93%E5%BC%80%EF%BC%8C%E8%BE%93%E5%85%A5url"><span class="nav-number">1.5.4.</span> <span class="nav-text">四、在浏览器打开，输入url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%88%9B%E5%BB%BA%E7%9A%84%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">1.5.5.</span> <span class="nav-text">五、创建的项目目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0GitHub%E4%B8%8A"><span class="nav-number">1.5.6.</span> <span class="nav-text">六、将本地项目部署到GitHub上</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-GitHub%E4%B8%8A%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93%EF%BC%9A"><span class="nav-number">1.5.6.1.</span> <span class="nav-text">6.1. GitHub上新建仓库：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-%E8%BF%9B%E5%85%A5%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%EF%BC%9A"><span class="nav-number">1.5.6.2.</span> <span class="nav-text">6.2. 进入本地项目根目录下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-%E5%9C%A8%E7%A9%BA%E7%99%BD%E5%8C%BA%E5%9F%9F%E5%8F%B3%E5%87%BB%E9%BC%A0%E6%A0%87%EF%BC%9A"><span class="nav-number">1.5.6.3.</span> <span class="nav-text">6.3. 在空白区域右击鼠标：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-4-%E8%BF%9B%E5%85%A5Git-Bash-Here%E5%B9%B6%E8%BE%93%E5%85%A5%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%EF%BC%88%E8%AE%B0%E5%BE%97%E6%8A%8A%E5%88%9A%E5%88%9A%E5%90%AF%E5%8A%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%85%88%E5%85%B3%E9%97%AD%EF%BC%8C%E6%8C%89CTRL-c%E9%80%80%E5%87%BA%EF%BC%89"><span class="nav-number">1.5.6.4.</span> <span class="nav-text">6.4. 进入Git Bash Here并输入以下命令（记得把刚刚启动的本地服务先关闭，按CTRL+c退出）:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-1-%E5%88%9B%E5%BB%BA%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="nav-number">1.5.6.4.1.</span> <span class="nav-text">6.4.1. 创建本地仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-3-%E6%8F%90%E4%BA%A4%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%EF%BC%8C%E5%B9%B6%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A"><span class="nav-number">1.5.6.4.2.</span> <span class="nav-text">6.4.3. 提交到本地仓库，并添加注释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-4-%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">1.5.6.4.3.</span> <span class="nav-text">6.4.4. 连接远程仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-5-%E6%8E%A8%E9%80%81%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">1.5.6.4.4.</span> <span class="nav-text">6.4.5. 推送到远程仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-6-%E6%9F%A5%E7%9C%8BGitHub%EF%BC%8C%E5%B7%B2%E6%88%90%E5%8A%9F%E4%B8%8A%E4%BC%A0"><span class="nav-number">1.5.6.4.5.</span> <span class="nav-text">6.4.6. 查看GitHub，已成功上传</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.5.7.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-7-%E7%94%9F%E6%88%90%E9%A1%B9%E7%9B%AE%E5%85%A5%E5%8F%A3"><span class="nav-number">1.5.7.0.1.</span> <span class="nav-text">6.4.7. 生成项目入口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-8-%E7%94%9F%E6%88%90%E9%A1%B9%E7%9B%AE%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.7.0.2.</span> <span class="nav-text">6.4.8. 生成项目入口文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-9-%E9%87%8D%E6%96%B0%E6%8F%90%E4%BA%A4%E5%88%B0GitHub"><span class="nav-number">1.5.7.0.3.</span> <span class="nav-text">6.4.9. 重新提交到GitHub</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">1.5.8.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81GitHub%E9%85%8D%E7%BD%AEpages%EF%BC%8C%E7%94%9F%E6%88%90%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88%E5%9C%B0%E5%9D%80"><span class="nav-number">1.5.9.</span> <span class="nav-text">七、GitHub配置pages，生成在线预览地址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vuecli-test"><span class="nav-number">2.</span> <span class="nav-text">vuecli_test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Setup"><span class="nav-number">2.1.</span> <span class="nav-text">Build Setup</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="hacalili"
+      src="/hacalili.github.io/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">hacalili</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/hacalili.github.io/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/hacalili.github.io/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/hacalili.github.io/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jiang-lijun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jiang-lijun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hacalili</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/hacalili.github.io/lib/anime.min.js"></script>
+  <script src="/hacalili.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/hacalili.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/hacalili.github.io/js/utils.js"></script>
+
+<script src="/hacalili.github.io/js/motion.js"></script>
+
+
+<script src="/hacalili.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/hacalili.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
