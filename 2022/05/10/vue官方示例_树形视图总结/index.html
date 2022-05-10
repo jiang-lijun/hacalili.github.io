@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hacalili.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/hacalili.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/hacalili.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/hacalili.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/hacalili.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/hacalili.github.io/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jiang-lijun.github.io","root":"/hacalili.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":240,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="效果展示 思维导图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue官方示例_树形视图总结">
+<meta property="og:url" content="https://jiang-lijun.github.io/hacalili.github.io/2022/05/10/vue%E5%AE%98%E6%96%B9%E7%A4%BA%E4%BE%8B_%E6%A0%91%E5%BD%A2%E8%A7%86%E5%9B%BE%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="hacalili&#39;s blog">
+<meta property="og:description" content="效果展示 思维导图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5bf68e5c50dc41d5bc8dd5703a99f335.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/89469fca125242f3bff7eebdc25e5910.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="article:published_time" content="2022-05-10T14:16:15.239Z">
+<meta property="article:modified_time" content="2022-05-10T14:33:08.260Z">
+<meta property="article:author" content="hacalili">
+<meta property="article:tag" content="Vue.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/5bf68e5c50dc41d5bc8dd5703a99f335.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16">
+
+<link rel="canonical" href="https://jiang-lijun.github.io/hacalili.github.io/2022/05/10/vue%E5%AE%98%E6%96%B9%E7%A4%BA%E4%BE%8B_%E6%A0%91%E5%BD%A2%E8%A7%86%E5%9B%BE%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>vue官方示例_树形视图总结 | hacalili's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/hacalili.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hacalili's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/hacalili.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/hacalili.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/hacalili.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/hacalili.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/hacalili.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jiang-lijun.github.io/hacalili.github.io/2022/05/10/vue%E5%AE%98%E6%96%B9%E7%A4%BA%E4%BE%8B_%E6%A0%91%E5%BD%A2%E8%A7%86%E5%9B%BE%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/hacalili.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="hacalili">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hacalili's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue官方示例_树形视图总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-10 22:16:15 / 修改时间：22:33:08" itemprop="dateCreated datePublished" datetime="2022-05-10T22:16:15+08:00">2022-05-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/hacalili.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h1><p><img src="https://img-blog.csdnimg.cn/5bf68e5c50dc41d5bc8dd5703a99f335.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><p><img src="https://img-blog.csdnimg.cn/89469fca125242f3bff7eebdc25e5910.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaGFjYWxpbGk=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<span id="more"></span>
+
+<h1 id="GitHub地址"><a href="#GitHub地址" class="headerlink" title="GitHub地址"></a>GitHub地址</h1><p> <a target="_blank" rel="noopener" href="https://github.com/jiang-lijun/tree_view">GitHub - jiang-lijun/tree_view</a></p>
+<h1 id="子组件向父组件传值"><a href="#子组件向父组件传值" class="headerlink" title="子组件向父组件传值"></a>子组件向父组件传值</h1><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.$emit( eventName, […args] )</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>{string} eventName</p>
+<p>[…args]</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>触发当前实例上的事件。附加参数都会传给监听器回调。</p>
+<h3 id="用法：给当前元素添加子元素"><a href="#用法：给当前元素添加子元素" class="headerlink" title="用法：给当前元素添加子元素"></a>用法：给当前元素添加子元素</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;treeitem</span><br><span class="line">            class=&quot;item&quot;</span><br><span class="line">            v-for=&quot;(child,index) in item.children&quot;</span><br><span class="line">            :key=&quot;index&quot;</span><br><span class="line">            :item=&quot;child&quot;</span><br><span class="line">            @make-folder=&quot;$emit(&#x27;make-folder&#x27;,$event)&quot;</span><br><span class="line">            @add-item=&quot;$emit(&#x27;add-item&#x27;,$event)&quot;</span><br><span class="line">          &gt;&lt;/treeitem&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h3 id="用法：给父元素添加子元素"><a href="#用法：给父元素添加子元素" class="headerlink" title="用法：给父元素添加子元素"></a>用法：给父元素添加子元素</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li @click=&quot;$emit(&#x27;add-item&#x27;,item)&quot;&gt;+&lt;/li&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h1 id="根据条件动态绑定样式"><a href="#根据条件动态绑定样式" class="headerlink" title="根据条件动态绑定样式"></a>根据条件动态绑定样式</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:class=&quot;&#123;bold: isFolder&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h1 id="判断是否是有子元素，有的话则返回1，没有则是false"><a href="#判断是否是有子元素，有的话则返回1，没有则是false" class="headerlink" title="判断是否是有子元素，有的话则返回1，没有则是false"></a>判断是否是有子元素，有的话则返回1，没有则是false</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    // 判断是否是文件夹，如果有子文件则返回1，没有子文件则不是文件夹</span><br><span class="line">    isFolder() &#123;</span><br><span class="line">        return this.item.children &amp;&amp; this.item.children.length</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h1 id="根据条件判断是否切换状态"><a href="#根据条件判断是否切换状态" class="headerlink" title="根据条件判断是否切换状态"></a>根据条件判断是否切换状态</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">    // 判断是否是文件夹，是的话切换状态是否折叠</span><br><span class="line">    toggle() &#123;</span><br><span class="line">        if(this.isFolder) &#123;</span><br><span class="line">            // console.log(1);</span><br><span class="line">            this.isOpen = !this.isOpen</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h1 id="函数式组件-props-children-slots-scopedSlots-data-parent-listeners-injections"><a href="#函数式组件-props-children-slots-scopedSlots-data-parent-listeners-injections" class="headerlink" title="函数式组件(props,children,slots,scopedSlots,data,parent,listeners,injections)"></a>函数式组件(props,children,slots,scopedSlots,data,parent,listeners,injections)</h1><ul>
+<li><p>props：提供所有 prop 的对象</p>
+</li>
+<li><p>children：VNode 子节点的数组</p>
+</li>
+<li><p>slots：一个函数，返回了包含所有插槽的对象</p>
+</li>
+<li><p>scopedSlots：(2.6.0+) 一个暴露传入的作用域插槽的对象。也以函数形式暴露普通插槽。</p>
+</li>
+<li><p>data：传递给组件的整个数据对象，作为 createElement 的第二个参数传入组件</p>
+</li>
+<li><p>parent：对父组件的引用</p>
+</li>
+<li><p>listeners：(2.3.0+) 一个包含了所有父组件为当前组件注册的事件监听器的对象。这是 data.on 的一个别名。</p>
+</li>
+<li><p>injections：(2.3.0+) 如果使用了 inject 选项，则该对象包含了应当被注入的 property。</p>
+</li>
+</ul>
+<h1 id="组件递归调用"><a href="#组件递归调用" class="headerlink" title="组件递归调用"></a>组件递归调用</h1><p>使用name: ‘需要递归调用的组件名称’</p>
+<h1 id="创建子元素"><a href="#创建子元素" class="headerlink" title="创建子元素"></a>创建子元素</h1><h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.set( target, propertyName/index, value )</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h3 id="ps：在模版中使用此方法需要导入vue"><a href="#ps：在模版中使用此方法需要导入vue" class="headerlink" title="ps：在模版中使用此方法需要导入vue"></a>ps：在模版中使用此方法需要导入vue</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h3 id="用法：父组件"><a href="#用法：父组件" class="headerlink" title="用法：父组件"></a>用法：父组件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">makeFolder(item) &#123;</span><br><span class="line">  Vue.set(item, &#x27;children&#x27;,[])</span><br><span class="line">  this.addItem(item)</span><br><span class="line">&#125;,</span><br><span class="line">addItem(item) &#123;</span><br><span class="line">  item.children.push(&#123;</span><br><span class="line">    name: &#x27;新的文件&#x27;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<h3 id="用法：子组件（创建前先判断是否是文件夹，是的话不创建子文件，否则创建子文件"><a href="#用法：子组件（创建前先判断是否是文件夹，是的话不创建子文件，否则创建子文件" class="headerlink" title="用法：子组件（创建前先判断是否是文件夹，是的话不创建子文件，否则创建子文件)"></a>用法：子组件（创建前先判断是否是文件夹，是的话不创建子文件，否则创建子文件)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">makeFolder: function() &#123;</span><br><span class="line">  if (!this.isFolder) &#123;</span><br><span class="line">    this.$emit(&quot;make-folder&quot;, this.item);</span><br><span class="line">    this.isOpen = true;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/hacalili.github.io/tags/Vue-js/" rel="tag"># Vue.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/hacalili.github.io/2022/05/10/vue%E5%AE%98%E6%96%B9%E7%A4%BA%E4%BE%8B_%E7%BD%91%E6%A0%BC%E7%BB%84%E4%BB%B6%E6%80%BB%E7%BB%93/" rel="prev" title="vue官方示例_网格组件总结">
+      <i class="fa fa-chevron-left"></i> vue官方示例_网格组件总结
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="nav-number">1.</span> <span class="nav-text">效果展示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">思维导图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GitHub%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">GitHub地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%90%E7%BB%84%E4%BB%B6%E5%90%91%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">子组件向父组件传值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">4.0.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">4.0.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">4.0.3.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95%EF%BC%9A%E7%BB%99%E5%BD%93%E5%89%8D%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0%E5%AD%90%E5%85%83%E7%B4%A0"><span class="nav-number">4.0.4.</span> <span class="nav-text">用法：给当前元素添加子元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95%EF%BC%9A%E7%BB%99%E7%88%B6%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0%E5%AD%90%E5%85%83%E7%B4%A0"><span class="nav-number">4.0.5.</span> <span class="nav-text">用法：给父元素添加子元素</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E5%8A%A8%E6%80%81%E7%BB%91%E5%AE%9A%E6%A0%B7%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">根据条件动态绑定样式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E6%9C%89%E5%AD%90%E5%85%83%E7%B4%A0%EF%BC%8C%E6%9C%89%E7%9A%84%E8%AF%9D%E5%88%99%E8%BF%94%E5%9B%9E1%EF%BC%8C%E6%B2%A1%E6%9C%89%E5%88%99%E6%98%AFfalse"><span class="nav-number">6.</span> <span class="nav-text">判断是否是有子元素，有的话则返回1，没有则是false</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%88%87%E6%8D%A2%E7%8A%B6%E6%80%81"><span class="nav-number">7.</span> <span class="nav-text">根据条件判断是否切换状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6-props-children-slots-scopedSlots-data-parent-listeners-injections"><span class="nav-number">8.</span> <span class="nav-text">函数式组件(props,children,slots,scopedSlots,data,parent,listeners,injections)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8"><span class="nav-number">9.</span> <span class="nav-text">组件递归调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%90%E5%85%83%E7%B4%A0"><span class="nav-number">10.</span> <span class="nav-text">创建子元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="nav-number">10.0.1.</span> <span class="nav-text">语法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ps%EF%BC%9A%E5%9C%A8%E6%A8%A1%E7%89%88%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%AD%A4%E6%96%B9%E6%B3%95%E9%9C%80%E8%A6%81%E5%AF%BC%E5%85%A5vue"><span class="nav-number">10.0.2.</span> <span class="nav-text">ps：在模版中使用此方法需要导入vue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95%EF%BC%9A%E7%88%B6%E7%BB%84%E4%BB%B6"><span class="nav-number">10.0.3.</span> <span class="nav-text">用法：父组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95%EF%BC%9A%E5%AD%90%E7%BB%84%E4%BB%B6%EF%BC%88%E5%88%9B%E5%BB%BA%E5%89%8D%E5%85%88%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E6%98%AF%E7%9A%84%E8%AF%9D%E4%B8%8D%E5%88%9B%E5%BB%BA%E5%AD%90%E6%96%87%E4%BB%B6%EF%BC%8C%E5%90%A6%E5%88%99%E5%88%9B%E5%BB%BA%E5%AD%90%E6%96%87%E4%BB%B6"><span class="nav-number">10.0.4.</span> <span class="nav-text">用法：子组件（创建前先判断是否是文件夹，是的话不创建子文件，否则创建子文件)</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="hacalili"
+      src="/hacalili.github.io/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">hacalili</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/hacalili.github.io/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/hacalili.github.io/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/hacalili.github.io/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jiang-lijun" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jiang-lijun" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hacalili</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/hacalili.github.io/lib/anime.min.js"></script>
+  <script src="/hacalili.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/hacalili.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/hacalili.github.io/js/utils.js"></script>
+
+<script src="/hacalili.github.io/js/motion.js"></script>
+
+
+<script src="/hacalili.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/hacalili.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
